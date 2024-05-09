@@ -6,8 +6,8 @@
 
 -- Part 1: Yelp Dataset Profiling and Understanding
 
-/* Profiling the data by finding the total number of records for each of the tables and compared it with the
-   total number of distinct values of each table's primary key or foreign key. */
+/* Profiling the data by finding the total number of records for each of the tables and compared it with the total 
+number of distinct values of each table's primary key or foreign key. */
 SELECT COUNT(DISTINCT(business_id)), COUNT(*)
 FROM  Attribute;
 
@@ -129,9 +129,8 @@ FROM User
 ORDER BY Fans DESC
 LIMIT 10;
 
-/* Analyzing restaurants in Las Vegas and grouping those restaurants
-   by their overall star rating. How do the restaurants with 2-3
-   stars compare to the restaurants with 4-5 stars? */
+/* Analyzing restaurants in Las Vegas and grouping those restaurants by their overall star rating. How do the restaurants with 2-3
+stars compare to the restaurants with 4-5 stars? */
 
 SELECT 
     CASE
@@ -150,8 +149,7 @@ WHERE City = 'Las Vegas' AND Category ='Restaurants' AND (Stars >= 2)
 GROUP BY B.Stars, B.Name 
 ORDER BY Stars DESC, hours DESC;
 
-/* What differences are there between restaurants that are open and the
-   the ones that are closed? */
+/* What differences are there between restaurants that are open and the ones that are closed? */
 SELECT 
     CASE
         WHEN Is_Open = 1 THEN 'Open'
