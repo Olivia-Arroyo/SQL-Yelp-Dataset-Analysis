@@ -161,3 +161,27 @@ SELECT
     SUM(Review_count) AS Total_Review_Count
 FROM Business
 GROUP BY Is_Open;
+
+/* How are users categorized by the number of fans they have? What are the average review count and the average rating for users in 
+each fan category? How many reviews are marked as useful, funny, and cool for each fan category? */
+SELECT 
+    CASE
+        WHEN U.Fans >0 AND U.Fans <=20 THEN '0-20 Fans'
+        WHEN U.Fans >20 AND U.Fans <=40 THEN '21-40 Fans'
+        WHEN U.Fans >40 AND U.Fans <=60 THEN '41-60 Fans'
+        WHEN U.Fans >60 AND U.Fans <=80 THEN '61-80 Fans'
+    END AS 'Distribution of Fans',
+    ROUND(AVG(U.Review_Count),2) AS Average_Review_Count,
+    ROUND(AVG(U.Average_Stars), 2) AS Average_of_Average_Stars,
+    SUM(CASE WHEN R.Useful = 1 THEN 1 ELSE 0 END) AS Number_of_Useful_Reviews,
+    SUM(CASE WHEN R.Funny = 1 THEN 1 ELSE 0 END) AS Number_of_Funny_Reviews,
+    SUM(CASE WHEN R.Cool = 1 THEN 1 ELSE 0 END) AS Number_of_Cool_Reviews
+FROM User AS U
+INNER JOIN Review AS R ON U.Id = R.User_Id
+GROUP BY 
+    CASE
+        WHEN U.Fans >0 AND U.Fans <=20 THEN '0-20 Fans'
+        WHEN U.Fans >20 AND U.Fans <=40 THEN '21-40 Fans'
+        WHEN U.Fans >40 AND U.Fans <=60 THEN '41-60 Fans'
+        WHEN U.Fans >60 AND U.Fans <=80 THEN '61-80 Fans'
+    END
